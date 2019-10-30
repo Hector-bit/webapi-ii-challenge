@@ -88,13 +88,13 @@ router.delete('/posts/:id', (req, res) => {
 // })
 
 router.put('/posts/:id', (req, res) => {
-    const { title, contents } = req.body;
+    // const { title, contents } = req.body;
   
-    if (!title || !contents) {
-      res
-        .status(400)
-        .json({ errorMessage: 'Please provide name and bio for the user.' });
-    } else {
+    // if (!title || !contents) {
+    //   res
+    //     .status(400)
+    //     .json({ errorMessage: 'Please provide name and bio for the user.' });
+    // } else {
       dataBase.update(req.params.id, req.body)
         .then(updated => {
           if (updated) {
@@ -113,6 +113,6 @@ router.put('/posts/:id', (req, res) => {
           });
         });
     }
-  });
+  );
 
 module.exports = router;
