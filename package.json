@@ -14,5 +14,16 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hector-bit/webapi-ii-challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hector-bit/webapi-ii-challenge/issues"
+  },
+  "homepage": "https://github.com/Hector-bit/webapi-ii-challenge#readme"
 }
