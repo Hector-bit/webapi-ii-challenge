@@ -53,14 +53,66 @@ router.get('/posts/:id', (req, res) => {
 })
 
 router.get(`/posts/:id/comments`, (req, res) => {
-    dataBase.findById(req.params.id)
+    dataBase.findPostComments(req.params.id)
     .then(post => {
         if(post){
-            res.status(201).json(post.comment)
+            res.status(201).json(post)
         } else {
             res.status(404).json({ message: "The post with the specified ID does not exist." })
         }
     })
 })
+
+router.delete('/posts/:id', (req, res) => {
+    dataBase.remove(req.params.id)
+    .then(post => {
+        if(post){
+            res.status(201).json({ message: `Post with ID ${req.params.id} was deleted` })
+        } else {
+            res.status(404).json({ message: "The post with the specified ID does not exist." })
+        }
+    })
+    .catch(error => res.status(404).json({ message: "The post with the specified ID does not exist." }))
+})
+
+// router.post('/posts/:id', (req, res) => {
+//     dataBase.update(req.params.id)
+//     .then(post => {
+//         if(post){
+//             res.status(201).json({ message: `Post with ID ${req.params.id} was modified` })
+//         } else {
+//             res.status(404).json({ message: "The post with the specified ID does not exist." })
+//         }
+//     })
+//     .catch(error => res.status(404).json({ message: "The post with the specified ID does not exist." }))
+// })
+
+router.put('/posts/:id', (req, res) => {
+    const { title, contents } = req.body;
+  
+    if (!title || !contents) {
+      res
+        .status(400)
+        .json({ errorMessage: 'Please provide name and bio for the user.' });
+    } else {
+      dataBase.update(req.params.id, req.body)
+        .then(updated => {
+          if (updated) {
+            res.status(200).json(updated);
+          } else {
+            res
+              .status(404)
+              .json({
+                message: 'The post with the specified ID does not exist.',
+              });
+          }
+        })
+        .catch(() => {
+          res.status(500).json({
+            errorMessage: 'The user information could not be modified.',
+          });
+        });
+    }
+  });
 
 module.exports = router;
